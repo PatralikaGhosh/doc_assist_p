@@ -10,7 +10,6 @@ Packages installed:
 Few checks for express.js:
 * In package.json, change "type" from commonjs to module.
 
-* If the database is not connecting and it shows 'undefined' in the console log for the database then somewhere, the code below is missing:
-
-`import dotenv from 'dotenv';
-dotenv.config();`
+* If the database is not connecting and it shows 'undefined' in the console log then somewhere, the code below is missing:
+`import dotenv from 'dotenv';`
+`dotenv.config();`
