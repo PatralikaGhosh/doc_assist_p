@@ -13,3 +13,9 @@ Few checks for express.js:
 * If the database is not connecting and it shows 'undefined' in the console log then somewhere, the code below is missing:
 `import dotenv from 'dotenv';`
 `dotenv.config();`
+
+Tech Stack:
+MERN
+Docker
+Postman
+Chakra UI
