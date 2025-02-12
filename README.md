@@ -15,7 +15,7 @@ Few checks for express.js:
 `dotenv.config();`
 
 Tech Stack:
-MERN
-Docker
-Postman
-Chakra UI
+* MERN
+* Docker
+* Postman
+* Chakra UI
