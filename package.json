@@ -1,7 +1,7 @@
 {
   "name": "doc_assist_p",
   "version": "1.0.0",
-  "description": "",
+  "description": "Packages installed: \r * express: Web framework for routing system\r * mongoose: database (MongoDB)\r * dotenv: Environment variables",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon backend/server.js"
