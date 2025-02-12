@@ -14,8 +14,9 @@ Few checks for express.js:
 `import dotenv from 'dotenv';`
 `dotenv.config();`
 
-Tech Stack:
+We used:
 * MERN
 * Docker
 * Postman
 * Chakra UI
+* Figma
