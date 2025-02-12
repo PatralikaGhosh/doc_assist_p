@@ -21,4 +21,4 @@ We used:
 * Docker
 * Postman
 * Chakra UI
-* Figma
+* Figma: https://www.figma.com/design/9LZIgmz7KY4xdhkw3o6w4w/docAssist?node-id=0-1&t=T1nypVHKwNcrhcSv-1
