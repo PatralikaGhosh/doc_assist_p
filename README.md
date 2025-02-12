@@ -15,7 +15,9 @@ Few checks for express.js:
 `dotenv.config();`
 
 We used:
-* MERN
+* Database: MongoDB
+* Servers: Express.js and Node.js
+* Frontend: Vite.js
 * Docker
 * Postman
 * Chakra UI
