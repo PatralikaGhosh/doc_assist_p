@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     res.send('Server is ready');
 });
 
-app.listen(5000, () => {    
+app.listen(3000, () => {    
     connectDB();
-    console.log('Server is running on port 5000 : localhost:5000');
+    console.log('Server is running on port 3000 : localhost:3000');
 });
