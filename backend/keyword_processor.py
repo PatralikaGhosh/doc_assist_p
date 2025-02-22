@@ -4,13 +4,25 @@ import nltk
 import re
 
 from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, wordnet
+from nltk.stem import WordNetLemmatizer
 
 # nltk.download('punkt')
 # nltk.download('stopwords')
 # nltk.download('wordnet') 
+nltk.download('averaged_perceptron_tagger_eng')
+
+# Function to get POS tag
+def get_wordnet_pos(word):
+    tag = nltk.pos_tag([word])[0][1][0].upper()
+    tag_dict = {"J": wordnet.ADJ, "N": wordnet.NOUN, "V": wordnet.VERB, "R": wordnet.ADV}
+    return tag_dict.get(tag, wordnet.NOUN)
 
 def extract_keywords(text):
+    '''
+    Stemming: the words "running", "runner", and "runs" might all be reduced to "run" by a stemming algorithm, but sometimes it might also reduce "arguing" to "argu".
+    Lemmatize: the word "better" would be lemmatized to "good"
+    '''
     words = re.findall('\w+', text.lower())
     # words = word_tokenize(text.lower())
     stop_words = set(stopwords.words("english"))
@@ -22,7 +34,11 @@ def extract_keywords(text):
     ss = nltk.SnowballStemmer(language = 'english')
     keywords_stemmed = [ss.stem(word) for word in keywords]
 
-    return keywords_stemmed
+    # Lemmatization
+    lm= nltk.WordNetLemmatizer()
+    keywords_lemmatized = [lm.lemmatize(word, get_wordnet_pos(word)) for word in keywords_stemmed]
+
+    return keywords_lemmatized
 
 def clean_text(text):
     return text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
