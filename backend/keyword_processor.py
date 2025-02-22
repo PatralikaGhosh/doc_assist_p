@@ -30,15 +30,16 @@ def extract_keywords(text):
     # Remove hello, hi, hey, etc.
     keywords = [word for word in keywords if word not in ["hello", "hi", "hey"]]
 
-    # Stemming
-    ss = nltk.SnowballStemmer(language = 'english')
-    keywords_stemmed = [ss.stem(word) for word in keywords]
-
     # Lemmatization
     lm= nltk.WordNetLemmatizer()
-    keywords_lemmatized = [lm.lemmatize(word, get_wordnet_pos(word)) for word in keywords_stemmed]
+    keywords_lemmatized = [lm.lemmatize(word, get_wordnet_pos(word)) for word in keywords]
 
-    return keywords_lemmatized
+    # Stemming
+    ss = nltk.SnowballStemmer(language = 'english')
+    keywords_stemmed = [ss.stem(word) for word in keywords_lemmatized]
+
+
+    return keywords_stemmed
 
 def clean_text(text):
     return text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
