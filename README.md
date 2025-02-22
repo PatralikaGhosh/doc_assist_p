@@ -5,7 +5,11 @@ Packages installed:
 * express: Web framework for routing system
 * mongoose: database (MongoDB)
 * dotenv: Environment variables
+* cors: Enables the frontend (running on localhost:5173 with Vite.js) to communicate with the backend (running on localhost:5000 with Express).
 
+* body-parser: Express does not process JSON requests by default. body-parser helps extract data from incoming POST requests.
+
+* child_process: Since NLTK is a Python library, we need a way to execute Python scripts from our Node.js backend. child_process allows us to spawn and run external processes (like Python).
 
 Few checks for express.js:
 * In package.json, change "type" from commonjs to module.
