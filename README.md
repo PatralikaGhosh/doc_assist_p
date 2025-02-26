@@ -31,14 +31,14 @@ We used:
 # Development Schedule
 | Week  | Issue Number/s | People Assigned |
 | ------------- | ------------- | ------------- |
-| 2/24-3/2 | 1,2, | Timothy Smith |
-| 2/24-3/2 | 3,5,6 | Patralika Ghosh |
-| 2/24-3/2 | 8 | Rohan Ganta |
+| 2/24-3/2 | https://github.com/PatralikaGhosh/doc_assist_p/issues/1  https://github.com/PatralikaGhosh/doc_assist_p/issues/2 | Timothy Smith |
+| 2/24-3/2 | https://github.com/PatralikaGhosh/doc_assist_p/issues/3 https://github.com/PatralikaGhosh/doc_assist_p/issues/5 https://github.com/PatralikaGhosh/doc_assist_p/issues/6 | Patralika Ghosh |
+| 2/24-3/2 | https://github.com/PatralikaGhosh/doc_assist_p/issues/8 | Rohan Ganta |
 | 3/5 | *MVP DUE* | ALL |
-| 3/3-3/23 | 10,11 | not assigned |
-| 3/3-3/23 | 9,13 | not assigned |
-| 3/3-3/23 | 12 | not assigned |
-| 3/23-4/2 | 7 | *sub-parts will be decided later* |
+| 3/3-3/23 | https://github.com/PatralikaGhosh/doc_assist_p/issues/10 https://github.com/PatralikaGhosh/doc_assist_p/issues/11 | not assigned |
+| 3/3-3/23 | https://github.com/PatralikaGhosh/doc_assist_p/issues/9 https://github.com/PatralikaGhosh/doc_assist_p/issues/13 | not assigned |
+| 3/3-3/23 | https://github.com/PatralikaGhosh/doc_assist_p/issues/12 | not assigned |
+| 3/23-4/2 | https://github.com/PatralikaGhosh/doc_assist_p/issues/7 | *sub-parts will be decided later* |
 | 4/14 | *PROJECT CODE DUE* | ALL |
 | 4/16 | *TESTING RESULTS DUE* | ALL |
 | 4/16 | *POSTER DUE* | ALL |
