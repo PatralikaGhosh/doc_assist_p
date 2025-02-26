@@ -31,6 +31,6 @@ We used:
 # Development Schedule
 | Week  | Issue Number/s | People Assigned |
 | ------------- | ------------- | ------------- |
-| 2/24-3/2  |   | 1,2, | Timothy Smith |
-| 2/24-3/2  |   | 3,5,6 | Patralika Ghosh |
-| 2/24-3/2  |   | 8 | Rohan Ganta |
+| 2/24-3/2 | 1,2, | Timothy Smith |
+| 2/24-3/2 | 3,5,6 | Patralika Ghosh |
+| 2/24-3/2 | 8 | Rohan Ganta |
