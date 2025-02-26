@@ -26,3 +26,11 @@ We used:
 * Postman
 * Chakra UI
 * Figma: https://www.figma.com/design/9LZIgmz7KY4xdhkw3o6w4w/docAssist?node-id=0-1&t=T1nypVHKwNcrhcSv-1
+
+
+# Development Schedule
+| Week  | Issue Number/s | People Assigned |
+| ------------- | ------------- | ------------- |
+| 2/24-3/2  |   | 1,2, | Timothy Smith |
+| 2/24-3/2  |   | 3,5,6 | Patralika Ghosh |
+| 2/24-3/2  |   | 8 | Rohan Ganta |
