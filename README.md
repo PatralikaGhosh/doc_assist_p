@@ -39,3 +39,8 @@ We used:
 | 3/3-3/23 | 9,13 | not assigned |
 | 3/3-3/23 | 12 | not assigned |
 | 3/23-4/2 | 7 | *sub-parts will be decided later* |
+| 4/14 | *PROJECT CODE DUE* | ALL |
+| 4/16 | *TESTING RESULTS DUE* | ALL |
+| 4/16 | *POSTER DUE* | ALL |
+| 4/17 | *POSTER PRESENTATION* | ALL |
+| 4/25 | *lAST WORKING DAY* | ALL |
