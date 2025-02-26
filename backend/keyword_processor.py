@@ -45,13 +45,13 @@ def clean_text(text):
     return text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
 
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print(json.dumps([]))  # Always return valid JSON
-        sys.exit(1)
+# if __name__ == "__main__":
+#     if len(sys.argv) < 2:
+#         print(json.dumps([]))  # Always return valid JSON
+#         sys.exit(1)
 
-    input_text = sys.argv[1]
-    cleaned_text = clean_text(input_text)
-    keywords = extract_keywords(cleaned_text)
+#     input_text = sys.argv[1]
+#     cleaned_text = clean_text(input_text)
+#     keywords = extract_keywords(cleaned_text)
 
-    print(json.dumps(keywords))  # Ensure JSON output
+#     print(json.dumps(keywords))  # Ensure JSON output

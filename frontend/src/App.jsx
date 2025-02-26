@@ -8,7 +8,7 @@ export default function ChatApp() {
     if (input.trim() === "") return;
   
     // Send user input to backend
-    const response = await fetch("http://localhost:5000/extract_keywords", {
+    const response = await fetch("http://localhost:3000/extract_keywords", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: input }),

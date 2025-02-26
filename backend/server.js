@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.post("/extract_keywords", (req, res) => {
     const userInput = req.body.text;
 
-    const pythonProcess = spawn("python3", ["keyword_processor.py", userInput]);
+    const pythonProcess = spawn("python3", ["solr_document_processing.py", userInput]);
 
     let data = "";
     pythonProcess.stdout.on("data", (chunk) => {
@@ -32,6 +32,6 @@ app.post("/extract_keywords", (req, res) => {
     });
 });
 
-app.listen(5000, () => {
-    console.log("Server running on port 5000");
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
 });
