@@ -1,5 +1,6 @@
 import pysolr
 import sys
+import json
 from nltk_chunking import chunk_text
 from keyword_processor import clean_text, extract_keywords
 
@@ -21,7 +22,5 @@ for keyword in keywords:
 
 results = solr.search(content_query)
 
-for result in results:
-    print(result)
-    print('\n')
-
+results_list = [result for result in results]  # convert results to a list
+print(json.dumps(results_list))

@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.post("/extract_keywords", (req, res) => {
     const userInput = req.body.text;
 
-    const pythonProcess = spawn("python3", ["solr_document_processing.py", userInput]);
+    const pythonProcess = spawn("python3", ["query_solr.py", userInput]);
 
     let data = "";
     pythonProcess.stdout.on("data", (chunk) => {
