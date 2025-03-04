@@ -23,10 +23,13 @@ body{
 }
 
 .container{
+    overflow-y: auto;
+    max-height: calc(100vh - 127px);
     padding: 32px 0 60px;
+    scrollbar-color: var(--scrollbar-color) transparent;
 }
 
-.container :where(.app-header, .prompt-wrapper, .disclaimer-text){
+.container :where(.app-header, .prompt-wrapper, .message, .disclaimer-text){
     margin: 0 auto;
     width: 100%;
     padding: 0 20px;
@@ -50,6 +53,72 @@ body{
     color: var(--subheading-color);
     font-size: 2.6rem;
     margin-top: -5px;
+}
+
+.container :is(.app-header){
+    display: none;
+}
+
+/* Chats container styling*/
+
+.container .chats-container{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+
+}
+
+.chats-container .message{
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+.chats-container .bot-message .avatar{
+    height: 43px;
+    width: 43px;
+    flex-shrink: 0;
+    padding: 6px;
+    align-self: flex-start;
+    margin-right: -7px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    border: 1px solid var(--secondary-hover-color);
+
+}
+
+.chats-container .bot-message.loading .avatar{
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate{
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.chats-container .message .message-text{
+    padding: 3px 16px;
+    word-wrap: break-word;
+    white-space: pre-line;
+
+}
+
+.chats-container .bot-message {
+    margin: 9px auto;
+}
+
+
+.chats-container .user-message{
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chats-container .user-message .message-text{
+    padding: 12px 16px;
+    max-width: 75%;
+    border-radius: 13px 13px 3px 13px;
+    background: var(--secondary-color);
 }
 
 /* Prompt Section */
@@ -108,14 +177,28 @@ body{
     background: var(--secondary-color-hover);
 }
 
-.prompt-form #send-prompt-btn{
-    color: #fff;
-    background: #064a20;
+.prompt-form .prompt-actions button{
+    gap: 5px;
+    margin-right: 7px;
 }
 
 .prompt-form .prompt-actions button{
     height:45px;
     width: 45px;
+}
+
+.prompt-form #send-prompt-btn{
+    color: #fff;
+    display:none;
+    background: #064a20;
+}
+
+.prompt-form .prompt-input:valid ~ .prompt-actions #send-prompt-btn{
+    display: block;
+}
+
+.prompt-form #send-prompt-btn:hover{
+    background: #77aa8b;
 }
 
 .prompt-form .prompt-actions{
