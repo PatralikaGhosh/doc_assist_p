@@ -1,10 +1,9 @@
 import pysolr
 import sys
 import json
-from nltk_chunking import chunk_text
 from keyword_processor import clean_text, extract_keywords
 
-# Sample usage: python solr_document_processing.py "Tell me about the impact of future invasions of fish"
+# Sample usage: python3 query_solr.py "Tell me about the impact of future invasions of fish"
 
 solr_url = 'http://localhost:8983/solr/document_processing'
 solr = pysolr.Solr(solr_url)
