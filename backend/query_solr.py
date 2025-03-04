@@ -24,3 +24,4 @@ results = solr.search(content_query)
 
 results_list = [result for result in results]  # convert results to a list
 print(json.dumps(results_list))
+
