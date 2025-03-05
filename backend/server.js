@@ -32,9 +32,9 @@ app.post("/extract_keywords", (req, res) => {
 
     pythonProcess.on("close", () => {
         if (errorOutput) {
-            console.error("Python Error:", errorOutput.trim()); // ✅ Log extracted keywords
+            console.error("Python Error:", errorOutput.trim()); // Log extracted keywords
         }
-        res.send(data.trim()); // ✅ Send plain text response to frontend
+        res.send(data.trim()); //Send plain text response to frontend
     });
 });
 

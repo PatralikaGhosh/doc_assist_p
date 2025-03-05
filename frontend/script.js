@@ -43,12 +43,12 @@ const generateResponse = async (botMsgDiv) => {
         const response = await fetch(BACKEND_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: userMessage }) // ✅ Send correct request format
+            body: JSON.stringify({ text: userMessage }) // Send correct request format
         });
 
         if (!response.ok) throw new Error("Failed to fetch response from server");
 
-        const responseText = await response.text(); // ✅ Read as plain text, not JSON
+        const responseText = await response.text(); // Read as plain text, not JSON
 
         typingEffect(responseText.trim(), textElement, botMsgDiv);
 
