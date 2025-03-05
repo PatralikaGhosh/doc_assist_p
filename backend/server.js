@@ -12,23 +12,29 @@ app.use(bodyParser.json());
 
 app.post("/extract_keywords", (req, res) => {
     const userInput = req.body.text;
+    if (!userInput) {
+        return res.status(400).send("No text provided");
+    }
 
-    const pythonProcess = spawn("python3", ["query_solr.py", userInput]);
+    const pythonProcess = spawn("python3", ["keyword_processor.py", userInput]);
 
     let data = "";
+    let errorOutput = "";
+
     pythonProcess.stdout.on("data", (chunk) => {
-        console.log("Python Output:", chunk.toString()); // Debugging output
         data += chunk.toString();
     });
-    
+
+    // Capture extracted keywords printed in stderr
+    pythonProcess.stderr.on("data", (chunk) => {
+        errorOutput += chunk.toString();
+    });
+
     pythonProcess.on("close", () => {
-        try {
-            console.log("Final Data:", data); // Log before parsing JSON
-            res.json({ keywords: JSON.parse(data) });
-        } catch (error) {
-            console.error("JSON parse error:", error);
-            res.status(500).json({ error: "Processing failed", rawOutput: data });
+        if (errorOutput) {
+            console.error("Python Error:", errorOutput.trim()); // ✅ Log extracted keywords
         }
+        res.send(data.trim()); // ✅ Send plain text response to frontend
     });
 });
 
