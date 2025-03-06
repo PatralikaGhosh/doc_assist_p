@@ -23,7 +23,7 @@ for keyword in keywords:
 results = solr.search(content_query)
 
 results_list = [result for result in results]  # convert results to a list
-print(json.dumps(results_list))
+# print(json.dumps(results_list))
 
 ############ GEMINI ############
 
@@ -44,5 +44,5 @@ response = client.models.generate_content(
     model="gemini-2.0-flash", contents=myQuestion
 )
 
-print("Cleaned user query:", cleaned)
+# print("Cleaned user query:", cleaned)
 print(response.text)

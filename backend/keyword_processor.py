@@ -1,6 +1,7 @@
 import sys
 import nltk
 import re
+import subprocess
 from nltk.corpus import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
 
@@ -31,6 +32,9 @@ def extract_keywords(text):
 
     return keywords_stemmed
 
+def clean_text(text):
+    return text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.exit(1)
@@ -42,5 +46,7 @@ if __name__ == "__main__":
     print("Extracted Keywords:", keywords, file=sys.stderr)
 
     # Send plain text response to Node.js
-    print("hey this worked so push your changes and tell people, bye gurl!")
+    result = subprocess.run(['python', 'query_solr.py', input_text], capture_output=True, text=True)
+    output = result.stdout  # The printed output is stored in output
+    print(output)
     sys.stdout.flush()
