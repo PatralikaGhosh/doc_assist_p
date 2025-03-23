@@ -187,6 +187,20 @@ body.chats-active .container :where(.app-header, .suggestions) {
     background: var(--secondary-color-hover);
 }
 
+.prompt-form :is(#stop-response-btn:hover) {
+  color: #d62939;
+}
+
+/* Hide the stop button by default */
+.prompt-form #stop-response-btn {
+  display: none;
+}
+
+/* When the body has .bot-responding, show the stop button */
+body.bot-responding .prompt-form #stop-response-btn {
+  display: block;
+}
+
 .prompt-form .prompt-actions{
     gap: 5px;
     margin-right: 7px;

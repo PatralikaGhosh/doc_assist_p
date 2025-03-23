@@ -3,9 +3,15 @@ const container = document.querySelector('.container');
 const promptForm = document.querySelector('.prompt-form');
 const promptInput = document.querySelector('.prompt-input');
 
-const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoint
+// const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoint
+
+// API SETUP
+const API_KEY = "AIzaSyAAN9wDSiGKa9QSljHYhqaBve_XQXId16o";
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
 let userMessage = "";
+let typingInterval, controller;
+const chatHistory = [];
 
 // Function to create message elements
 const createMsgElement = (content, ...classes) => {
@@ -24,13 +30,15 @@ const typingEffect = (text, textElement, botMsgDiv) => {
     const words = text.split(" ");
     let wordIndex = 0;
 
-    const typingInterval = setInterval(() => {
+    // set interval to type words
+    typingInterval = setInterval(() => {
         if (wordIndex < words.length) {
             textElement.textContent += (wordIndex === 0 ? "" : " ") + words[wordIndex++];
-            botMsgDiv.classList.remove("loading");
             scrollToBottom();
         } else {
             clearInterval(typingInterval);
+            botMsgDiv.classList.remove("loading");
+            document.body.classList.remove("bot-responding");
         }
     }, 40);
 };
@@ -38,23 +46,40 @@ const typingEffect = (text, textElement, botMsgDiv) => {
 // Make API call to backend
 const generateResponse = async (botMsgDiv) => {
     const textElement = botMsgDiv.querySelector(".message-text");
+    controller = new AbortController();
+
+    // Add user message to chat history
+    chatHistory.push({
+        role: "user",
+        parts:[{text: userMessage}]
+    });
 
     try {
-        const response = await fetch(BACKEND_URL, {
+        const response = await fetch(API_URL, { // change to BACKEND_URL for local server  
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: userMessage }) // Send correct request format
+            body: JSON.stringify({contents: chatHistory}),
+            signal: controller.signal
         });
+        
+        const data = await response.json(); // for API_URL
+        console.log(data);
 
-        if (!response.ok) throw new Error("Failed to fetch response from server");
+        if(!response.ok) throw new Error(data.error.message);
 
-        const responseText = await response.text(); // Read as plain text, not JSON
-
-        typingEffect(responseText.trim(), textElement, botMsgDiv);
+        // const responseText = await response.text(); //   for BACKEND_URL
+        const responseText = data.candidates[0].content.parts[0].text.replace(/\*\*([^*]+)\*\*/g, "$1").trim(); // only for API_URL
+    
+        typingEffect(responseText, textElement, botMsgDiv); // only for API_URL
+        // typingEffect(responseText.trim(), textElement, botMsgDiv); // for BACKEND_URL
+        chatHistory.push({ role: "model", parts: [{ text: responseText }] });
 
     } catch (error) {
-        console.error("Error:", error);
-        textElement.textContent = "Error processing your request.";
+        textElement.textContent = error.name === "AbortError" ? "Response generation stopped." : error.message;
+        textElement.style.color = "#d62939";
+        botMsgDiv.classList.remove("loading");
+        document.body.classList.remove("bot-responding");
+        scrollToBottom();
     }
 };
 
@@ -65,7 +90,7 @@ const handleFormSubmit = (e) => {
     if (!userMessage) return;
 
     promptInput.value = "";
-
+    document.body.classList.add("bot-responding");
     // Generate user message HTML
     const userMsgHTML = `<p class="message-text"></p>`;
     const userMsgDiv = createMsgElement(userMsgHTML, "user-message");
@@ -82,5 +107,13 @@ const handleFormSubmit = (e) => {
         generateResponse(botMsgDiv);
     }, 600);
 };
+
+// Stop Bot Response
+document.querySelector("#stop-response-btn").addEventListener("click", () => {
+    controller?.abort();
+    clearInterval(typingInterval);
+    chatsContainer.querySelector(".bot-message.loading").classList.remove("loading");
+    document.body.classList.remove("bot-responding");
+  });
 
 promptForm.addEventListener("submit", handleFormSubmit);

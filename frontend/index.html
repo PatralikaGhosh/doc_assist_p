@@ -23,12 +23,19 @@
        <div class="prompt-wrapper">
          <form action="#"  class="prompt-form" >
            <input type="text" placeholder="Ask docAssist" class="prompt-input" required>
+
            <div class="prompt-actions">
-             <button id="send-prompt-btn" class="material-symbols-rounded">send</button>
+              <!-- Send Prompt and Stop Response Buttons -->
+              <button id="stop-response-btn" type="button" class="material-symbols-rounded">stop_circle</button>
+              <button id="send-prompt-btn" class="material-symbols-rounded">send</button>
            </div>
          </form>
+
+         <!-- Theme and Delete Chats Buttons -->
+         <button id="theme-toggle-btn" class="material-symbols-rounded">light_mode</button>
          <button id="delete-chats-btn" class="material-symbols-rounded">delete</button>
        </div>
+       <!-- Disclaimer Text -->
        <p class="disclaimer-text">docAssist can make mistakes, check important information.</p>
      </div>
     <!-- Fixed Sidebar -->
