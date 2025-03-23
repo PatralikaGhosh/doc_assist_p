@@ -2,6 +2,7 @@ const chatsContainer = document.querySelector('.chats-container');
 const container = document.querySelector('.container');
 const promptForm = document.querySelector('.prompt-form');
 const promptInput = document.querySelector('.prompt-input');
+const themeToggleBtn = document.querySelector("#theme-toggle-btn");
 
 // const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoint
 
@@ -12,6 +13,12 @@ const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-
 let userMessage = "";
 let typingInterval, controller;
 const chatHistory = [];
+
+// Set initial theme from local storage
+const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
+document.body.classList.toggle("light-theme", isLightTheme);
+themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
+
 
 // Function to create message elements
 const createMsgElement = (content, ...classes) => {
@@ -110,6 +117,13 @@ const handleFormSubmit = (e) => {
     }, 600);
 };
 
+// Toggle dark/light theme
+themeToggleBtn.addEventListener("click", () => {
+    const isLightTheme = document.body.classList.toggle("light-theme");
+    localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
+    themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
+});
+  
 // Stop Bot Response
 document.querySelector("#stop-response-btn").addEventListener("click", () => {
     controller?.abort();
