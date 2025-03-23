@@ -87,10 +87,12 @@ const generateResponse = async (botMsgDiv) => {
 const handleFormSubmit = (e) => {
     e.preventDefault();
     userMessage = promptInput.value.trim();
-    if (!userMessage) return;
+
+    // Check if user message is empty or bot is already responding, then restrict the user from sending a new message
+    if (!userMessage || document.body.classList.contains("bot-responding")) return;
 
     promptInput.value = "";
-    document.body.classList.add("bot-responding");
+    document.body.classList.add("chats-active", "bot-responding");
     // Generate user message HTML
     const userMsgHTML = `<p class="message-text"></p>`;
     const userMsgDiv = createMsgElement(userMsgHTML, "user-message");
@@ -114,6 +116,13 @@ document.querySelector("#stop-response-btn").addEventListener("click", () => {
     clearInterval(typingInterval);
     chatsContainer.querySelector(".bot-message.loading").classList.remove("loading");
     document.body.classList.remove("bot-responding");
-  });
+});
+
+  // Delete all chats
+document.querySelector("#delete-chats-btn").addEventListener("click", () => {
+    chatHistory.length = 0;
+    chatsContainer.innerHTML = "";
+    document.body.classList.remove("chats-active", "bot-responding");
+});
 
 promptForm.addEventListener("submit", handleFormSubmit);
