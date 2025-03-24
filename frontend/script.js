@@ -4,11 +4,7 @@ const promptForm = document.querySelector('.prompt-form');
 const promptInput = document.querySelector('.prompt-input');
 const themeToggleBtn = document.querySelector("#theme-toggle-btn");
 
-// const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoint
-
-// API SETUP
-const API_KEY = "AIzaSyAAN9wDSiGKa9QSljHYhqaBve_XQXId16o";
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoint
 
 let userMessage = "";
 let typingInterval, controller;
@@ -62,23 +58,23 @@ const generateResponse = async (botMsgDiv) => {
     });
 
     try {
-        const response = await fetch(API_URL, { // change to BACKEND_URL for local server  
+        const response = await fetch(BACKEND_URL, { // change to BACKEND_URL for local server  
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({contents: chatHistory}),
+            body: JSON.stringify({text: userMessage}),
             signal: controller.signal
         });
         
-        const data = await response.json(); // for API_URL
-        console.log(data);
+        // const data = await response.json(); // for API_URL
+        // console.log(data);
 
-        if(!response.ok) throw new Error(data.error.message);
+        if(!response.ok) throw new Error("Failed to fetch response from server");
 
-        // const responseText = await response.text(); //   for BACKEND_URL
-        const responseText = data.candidates[0].content.parts[0].text.replace(/\*\*([^*]+)\*\*/g, "$1").trim(); // only for API_URL
+        const responseText = await response.text(); //   for BACKEND_URL
+        // const responseText = data.candidates[0].content.parts[0].text.replace(/\*\*([^*]+)\*\*/g, "$1").trim(); // only for API_URL
     
-        typingEffect(responseText, textElement, botMsgDiv); // only for API_URL
-        // typingEffect(responseText.trim(), textElement, botMsgDiv); // for BACKEND_URL
+        // typingEffect(responseText, textElement, botMsgDiv); // only for API_URL
+        typingEffect(responseText.trim(), textElement, botMsgDiv); // for BACKEND_URL
         chatHistory.push({ role: "model", parts: [{ text: responseText }] });
 
     } catch (error) {
