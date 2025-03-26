@@ -113,6 +113,26 @@ const handleFormSubmit = (e) => {
     }, 600);
 };
 
+// Load chat history from database
+const loadChatHistory = async () => {
+  try {
+      const response = await fetch("http://localhost:3000/get_chats");
+      const chats = await response.json();
+
+      chats.forEach(({ role, message }) => {
+          const msgDiv = createMsgElement(
+              `<p class="message-text">${message}</p>`, 
+              role === "user" ? "user-message" : "bot-message"
+          );
+          chatsContainer.appendChild(msgDiv);
+      });
+
+      scrollToBottom();
+  } catch (error) {
+      console.error("Failed to load chat history:", error);
+  }
+};
+
 // Toggle dark/light theme
 themeToggleBtn.addEventListener("click", () => {
     const isLightTheme = document.body.classList.toggle("light-theme");
@@ -136,3 +156,4 @@ document.querySelector("#delete-chats-btn").addEventListener("click", () => {
 });
 
 promptForm.addEventListener("submit", handleFormSubmit);
+window.onload = loadChatHistory;
