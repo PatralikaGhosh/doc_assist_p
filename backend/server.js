@@ -40,10 +40,6 @@ app.post("/extract_keywords", async (req, res) => {
     let data = "";
     let errorOutput = "";
 
-    pythonProcess.stdout.on("data", (chunk) => {
-        data += chunk.toString();
-    });
-
     // Capture extracted keywords printed in stderr
     pythonProcess.stdout.on("data", (chunk) => (data += chunk.toString()));
     pythonProcess.stderr.on("data", (chunk) => (errorOutput += chunk.toString()));
