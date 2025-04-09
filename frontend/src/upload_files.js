@@ -44,3 +44,26 @@ uploadBtn.addEventListener('click', async () => {
     alert('Error uploading the file!');
   }
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const pdfList = document.getElementById("pdf-links");
+  const s3BucketUrl = "https://docassistbucket.s3.amazonaws.com/";
+
+  try {
+    const res = await fetch("/api/list-pdfs");
+    const { files } = await res.json();
+
+    files.forEach(file => {
+      const link = document.createElement("a");
+      link.href = s3BucketUrl + encodeURIComponent(file);
+      link.textContent = file;
+      link.target = "_blank";
+      link.classList.add("pdf-link");
+      pdfList.appendChild(link);
+      pdfList.appendChild(document.createElement("br"));
+    });
+  } catch (err) {
+    console.error("Failed to fetch PDF list:", err);
+    pdfList.textContent = "Failed to load PDF files.";
+  }
+});

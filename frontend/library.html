@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- <input type="file" id="fileInput" />
-    <button id="uploadBtn">Upload</button> -->
     <aside class="sidebar">
       <!-- Sidebar header -->
       <header class="sidebar-header">
@@ -70,16 +68,32 @@
       </nav>
     </aside>
     <div class="upload-container">
-      <!-- App Content -->
+        <!-- App Content -->
         <form action="" class="search-bar">
           <input type="text" placeholder="Search for any files that you have uploaded" name="q" />
           <div class="search-bar-actions">
             <button id="upload-submit-button" class="material-symbols-rounded">search</button>
           </div>
         </form>
-        <button id="upload-submit-button" class="material-symbols-rounded">add_circle</button>
-      </div>
+        <button id="uploadTriggerBtn" class="material-symbols-rounded">add_circle</button>
+
+        <!-- Upload popup -->
+        <div id="uploadPopup" class="popup hidden">
+          <span id="closePopupBtn" class="close-btn">&times;</span>
+        
+          <div class="upload-row">
+            <input type="file" id="fileInput" multiple />
+            <button id="uploadBtn">
+              <span class="material-symbols-rounded">upload_file</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- <button id="uploadBtn" class="material-symbols-rounded">upload_file</button> -->
+    </div>
+    <!-- <div id="pdf-links" class="pdf-list"></div> -->
     <script src="/src/sidebar.js"></script>
-    <script src="/src/upload_files.js"></script>
+    <!-- <script src="/src/upload_files.js"></script> -->
+    <script src="/src/popup.js"></script>
   </body>
 </html>
