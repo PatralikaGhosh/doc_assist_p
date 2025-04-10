@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 
 
@@ -123,7 +124,7 @@ app.post("/get_presigned_url", async (req, res) => {
             Key: fileName,
         };
 
-        await s3.send(new DeleteObjectCommand(deleteParams));
+        await s3Client.send(new DeleteObjectCommand(deleteParams));
 
         res.json({ message: `Successfully deleted ${fileName}` });
     } catch (error) {
