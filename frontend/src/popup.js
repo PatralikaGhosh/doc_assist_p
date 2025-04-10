@@ -73,7 +73,5 @@ document.addEventListener("DOMContentLoaded", () => {
     closePopupBtn.addEventListener('click', () => {
       uploadPopup.classList.add('hidden');
     });
-  
-    // Your existing upload logic here...
   });
   

@@ -573,3 +573,43 @@ body.bot-responding .prompt-form #stop-response-btn {
 #uploadBtn .material-symbols-rounded {
   font-size: 20px;
 }
+
+.file-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid green;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.file-link {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  flex-grow: 1; /* Allows name to take up most of the space */
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px; /* Space between file name and delete button */
+  border-radius: 3px;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}

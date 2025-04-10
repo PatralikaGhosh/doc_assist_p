@@ -89,13 +89,54 @@
             </button>
           </div>
         </div>
-
-        <!-- <button id="uploadBtn" class="material-symbols-rounded">upload_file</button> -->
     </div>
-    <!-- <div id="pdf-links" class="pdf-list"></div> -->
+    <div id="file-list-container"></div>
     <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
-    <!-- <script src="/src/upload_files.js"></script> -->
     <script src="/src/popup.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+          const fileListContainer = document.getElementById("file-list-container");
+
+          try {
+              const response = await fetch("http://localhost:3000/list-files"); // Backend API
+              const data = await response.json();
+
+              if (!data.files.length) {
+                  fileListContainer.innerHTML = "<p>No files available.</p>";
+                  return;
+              }
+
+              // Create a list of files
+              const fileList = document.createElement("ul");
+              fileList.style.listStyle = "none";
+              fileList.style.padding = "0";
+
+              data.files.forEach(file => {
+                  const listItem = document.createElement("li");
+                  listItem.style.margin = "10px 0";
+
+                  // Create a clickable file link
+                  const fileLink = document.createElement("a");
+                  fileLink.href = file.fileUrl;
+                  fileLink.textContent = file.fileName;
+                  fileLink.target = "_blank";  // Open in a new tab
+                  fileLink.style.textDecoration = "none";
+                  fileLink.style.color = "#007bff";
+                  fileLink.style.fontSize = "16px";
+                  fileLink.style.cursor = "pointer";
+
+                  // Append the link to the list item
+                  listItem.appendChild(fileLink);
+                  fileList.appendChild(listItem);
+              });
+
+              fileListContainer.appendChild(fileList);
+          } catch (error) {
+              console.error("Error fetching files:", error);
+              fileListContainer.innerHTML = "<p>Error loading files.</p>";
+          }
+      });
+    </script>
   </body>
 </html>
