@@ -22,7 +22,7 @@ body.light-theme {
   --text-color: #090c13;
   --subheading-color: #7b8cae;
   --placeholder-color: #606982;
-  --primary-color: #f3f7ff;
+  --primary-color: #bdd7ce;
   --secondary-color: #dce6f9;
   --secondary-hover-color: #d2ddf2;
   --scrollbar-color: #a2aac2;
@@ -578,6 +578,7 @@ body.bot-responding .prompt-form #stop-response-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px; /* Space between files */
   margin-top: 20px;
 }
 
@@ -585,31 +586,31 @@ body.bot-responding .prompt-form #stop-response-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 50%;
+  width: 60%;
   padding: 10px;
-  margin: 10px 0;
   border: 2px solid green;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 8px;
+  background-color: black; /* Light green background */
 }
 
-.file-link {
-  text-decoration: none;
-  color: black;
+.file-name {
+  color: green;
   font-weight: bold;
-  flex-grow: 1; /* Allows name to take up most of the space */
+  font-size: 18px;
+  text-decoration: none;
 }
 
-.delete-btn {
+.delete-button {
+  margin-left: 10px;
   background-color: red;
   color: white;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
-  margin-left: 10px; /* Space between file name and delete button */
-  border-radius: 3px;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
-.delete-btn:hover {
+.delete-button:hover {
   background-color: darkred;
 }
