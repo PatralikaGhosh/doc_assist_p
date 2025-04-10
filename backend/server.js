@@ -109,6 +109,29 @@ app.post("/get_presigned_url", async (req, res) => {
     }
   });
   
+  app.post("/delete-file", async (req, res) => {
+    const { fileName } = req.body;
+    const bucketName = "docassistbucket";
+
+    if (!fileName) {
+        return res.status(400).json({ message: "File name is required" });
+    }
+
+    try {
+        const deleteParams = {
+            Bucket: bucketName,
+            Key: fileName,
+        };
+
+        await s3.send(new DeleteObjectCommand(deleteParams));
+
+        res.json({ message: `Successfully deleted ${fileName}` });
+    } catch (error) {
+        console.error("Error deleting file:", error);
+        res.status(500).json({ message: "Failed to delete file", error: error.message });
+    }
+});
+
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
