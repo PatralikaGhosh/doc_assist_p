@@ -40,13 +40,6 @@
             </a>
             <span class="nav-tooltip">Chat</span>
           </li>
-          <li class="nav-item">
-            <a href="history.html" class="nav-link">
-              <span class="nav-icon material-symbols-rounded">history</span>
-              <span class="nav-label">History</span>
-            </a>
-            <span class="nav-tooltip">History</span>
-          </li>
         </ul>
         <!-- Secondary bottom nav -->
         <ul class="nav-list secondary-nav">
@@ -96,13 +89,68 @@
             </button>
           </div>
         </div>
-
-        <!-- <button id="uploadBtn" class="material-symbols-rounded">upload_file</button> -->
     </div>
-    <!-- <div id="pdf-links" class="pdf-list"></div> -->
+    <div id="file-list" class="file-container"></div>
     <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
-    <!-- <script src="/src/upload_files.js"></script> -->
     <script src="/src/popup.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+          const fileListContainer = document.getElementById("file-list"); // Make sure the ID matches
+    
+          try {
+              const response = await fetch("http://localhost:3000/list-files"); // Backend API
+              const data = await response.json();
+    
+              if (!data.files.length) {
+                  fileListContainer.innerHTML = "<p>No files available.</p>";
+                  return;
+              }
+    
+              // Clear previous content
+              fileListContainer.innerHTML = "";
+    
+              // Loop through files and display them
+              data.files.forEach(file => {
+                  const fileItem = document.createElement("div");
+                  fileItem.classList.add("file-item");
+    
+                  const fileLink = document.createElement("a");
+                  fileLink.classList.add("file-name");
+                  fileLink.href = file.fileUrl;
+                  fileLink.textContent = file.fileName;
+                  fileLink.target = "_blank"; // Open in new tab
+    
+                  const deleteButton = document.createElement("button");
+                  deleteButton.classList.add("delete-button");
+                  deleteButton.textContent = "Delete";
+                  deleteButton.onclick = () => deleteFile(file.fileName);
+    
+                  fileItem.appendChild(fileLink);
+                  fileItem.appendChild(deleteButton);
+                  fileListContainer.appendChild(fileItem);
+              });
+          } catch (error) {
+              console.error("Error fetching files:", error);
+              fileListContainer.innerHTML = "<p>Error loading files.</p>";
+          }
+      });
+    
+      function deleteFile(fileName) {
+          if (confirm(`Are you sure you want to delete ${fileName}?`)) {
+              fetch("http://localhost:3000/delete-file", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ fileName }),
+              })
+              .then(response => response.json())
+              .then(data => {
+                  alert(data.message);
+                  location.reload(); // Refresh the list after deletion
+              })
+              .catch(error => console.error("Error deleting file:", error));
+          }
+      }
+    </script>
   </body>
 </html>

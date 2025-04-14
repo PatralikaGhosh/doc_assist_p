@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 // AWS SDK v3 imports
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+
 
 
 dotenv.config({ path: "../.env" });
@@ -71,7 +74,7 @@ app.post("/get_presigned_url", async (req, res) => {
   
       // Generate the pre-signed URL
       const signedUrl = await getSignedUrl(s3Client, command, {
-        expiresIn: 60 * 5, // 5 minutes
+        expiresIn: 60 * 5, 
       });
   
       return res.json({ url: signedUrl });
@@ -80,6 +83,56 @@ app.post("/get_presigned_url", async (req, res) => {
       res.status(500).json({ error: "Failed to generate pre-signed URL" });
     }
   });
+
+  app.get("/list-files", async (req, res) => {
+    try {
+      const command = new ListObjectsV2Command({
+        Bucket: BUCKET_NAME,
+      });
+  
+      const response = await s3Client.send(command);
+  
+      if (!response.Contents) {
+        return res.json({ files: [] });
+      }
+  
+      // Filter out directories and map the file URLs
+      const files = response.Contents.filter(file => !file.Key.endsWith("/"))
+        .map(file => ({
+          fileName: file.Key,
+          fileUrl: `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${file.Key}`
+        }));
+  
+      res.json({ files });
+    } catch (error) {
+      console.error("Error listing files:", error);
+      res.status(500).json({ error: "Failed to list files" });
+    }
+  });
+  
+  app.post("/delete-file", async (req, res) => {
+    const { fileName } = req.body;
+    const bucketName = "docassistbucket";
+
+    if (!fileName) {
+        return res.status(400).json({ message: "File name is required" });
+    }
+
+    try {
+        const deleteParams = {
+            Bucket: bucketName,
+            Key: fileName,
+        };
+
+        await s3Client.send(new DeleteObjectCommand(deleteParams));
+
+        res.json({ message: `Successfully deleted ${fileName}` });
+    } catch (error) {
+        console.error("Error deleting file:", error);
+        res.status(500).json({ message: "Failed to delete file", error: error.message });
+    }
+});
+
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");

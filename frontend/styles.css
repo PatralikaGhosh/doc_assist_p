@@ -22,7 +22,7 @@ body.light-theme {
   --text-color: #090c13;
   --subheading-color: #7b8cae;
   --placeholder-color: #606982;
-  --primary-color: #f3f7ff;
+  --primary-color: #bdd7ce;
   --secondary-color: #dce6f9;
   --secondary-hover-color: #d2ddf2;
   --scrollbar-color: #a2aac2;
@@ -572,4 +572,45 @@ body.bot-responding .prompt-form #stop-response-btn {
 
 #uploadBtn .material-symbols-rounded {
   font-size: 20px;
+}
+
+.file-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Space between files */
+  margin-top: 20px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  padding: 10px;
+  border: 2px solid green;
+  border-radius: 8px;
+  background-color: black; /* Light green background */
+}
+
+.file-name {
+  color: green;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.delete-button {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background-color: darkred;
 }
