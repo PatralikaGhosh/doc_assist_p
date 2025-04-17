@@ -1,0 +1,14 @@
+FROM solr:8
+
+USER root
+RUN apt-get update && apt-get install -y openssh-server && mkdir /var/run/sshd
+# Add an SSH user (for debugging; consider using key-based authentication in production)
+RUN useradd -m debug && echo "debug:password" | chpasswd && \
+    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+EXPOSE 22
+
+# Copy the initialization script and set execute permissions
+COPY init-solr-core.sh /init-solr-core.sh
+RUN chmod +x /init-solr-core.sh
+
+ENTRYPOINT ["/init-solr-core.sh"]

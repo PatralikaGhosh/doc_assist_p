@@ -1,0 +1,23 @@
+version: '3'
+services:
+  solr:
+    image: solr:8.11 # Official Solr image
+    container_name: solr
+    ports:
+      - "8983:8983" # Expose Solr's port to the host for testing if desired
+    volumes:
+      - solr_data:/var/solr # Persist Solr data
+    command:
+      - solr-precreate
+      - document_processing # Creates 'document_processing' core on startup
+
+  doc_processor:
+    build: .
+    container_name: doc_processor
+    depends_on:
+      - solr
+    volumes:
+      - .:/app
+
+volumes:
+  solr_data:

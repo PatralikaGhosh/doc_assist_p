@@ -1,0 +1,4 @@
+nltk
+openai-whisper
+pysolr
+google-genai
