@@ -364,7 +364,7 @@ body.bot-responding .prompt-form #stop-response-btn {
   transition: all 0.4s ease;
 }
 .sidebar-nav .secondary-nav {
-  position: absolute;
+  position: relative;
   bottom: 30px;
   width: 100%;
 }
@@ -422,4 +422,28 @@ body.bot-responding .prompt-form #stop-response-btn {
     bottom: 0;
     margin: 40px 0 30px;
   }
+}
+
+.sidebar-nav .nav-link,
+.sidebar-nav .history-button {
+  color: #fff;
+  display: flex;
+  gap: 12px;
+  white-space: nowrap;
+  border-radius: 8px;
+  padding: 12px 15px;
+  align-items: center;
+  text-decoration: none;
+  transition: 0.4s ease;
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+ 
+  /* keep text inside button */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
 }

@@ -13,7 +13,7 @@
     <div class="container">
       <!-- App Header -->
       <header class="app-header">
-        <h1 class="heading">Hello, there</h1>
+        <h1 class="heading">Hello there!</h1>
       </header>
       <!-- Chats -->
       <div class="chats-container">
@@ -61,23 +61,17 @@
               <span class="nav-icon material-symbols-rounded">dashboard</span>
               <span class="nav-label">Library</span>
             </a>
-            <span class="nav-tooltip">Library</span>
+            <!-- <span class="nav-tooltip">Library</span> -->
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <button id="restore-history-btn" class="nav-link history-button">
               <span class="nav-icon material-symbols-rounded">chat</span>
-              <span class="nav-label">Chat</span>
-            </a>
-            <span class="nav-tooltip">Chat</span>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <span class="nav-icon material-symbols-rounded">history</span>
-              <span class="nav-label">History</span>
-            </a>
-            <span class="nav-tooltip">History</span>
+              <span class="nav-label">New Chat</span>
+            </button>
+            <!-- <span class="nav-tooltip">History</span> -->
           </li>
         </ul>
+        <ul id="conversation-buttons" class="nav-list secondary-nav"></ul>
         <!-- Secondary bottom nav -->
         <ul class="nav-list secondary-nav">
           <li class="nav-item">
