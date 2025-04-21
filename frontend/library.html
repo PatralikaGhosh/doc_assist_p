@@ -10,34 +10,6 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <!-- App Header -->
-      <header class="app-header">
-        <h1 class="heading">Hello there!</h1>
-      </header>
-      <!-- Chats -->
-      <div class="chats-container">
-      </div>
-     <!-- Chatbot Messages -->
-     <div class="prompt-container">   
-       <div class="prompt-wrapper">
-         <form action="#"  class="prompt-form" >
-           <input type="text" placeholder="Ask docAssist" class="prompt-input" required>
-
-           <div class="prompt-actions">
-              <!-- Send Prompt and Stop Response Buttons -->
-              <button id="stop-response-btn" type="button" class="material-symbols-rounded">stop_circle</button>
-              <button id="send-prompt-btn" class="material-symbols-rounded">send</button>
-           </div>
-         </form>
-
-         <button id="delete-chats-btn" class="material-symbols-rounded">delete</button>
-       </div>
-       <!-- Disclaimer Text -->
-       <p class="disclaimer-text">docAssist can make mistakes, check important information.</p>
-     </div>
-    </div>
-    <!-- Fixed Sidebar -->
     <aside class="sidebar">
       <!-- Sidebar header -->
       <header class="sidebar-header">
@@ -59,17 +31,23 @@
               <span class="nav-icon material-symbols-rounded">dashboard</span>
               <span class="nav-label">Library</span>
             </a>
-            <!-- <span class="nav-tooltip">Library</span> -->
+            <span class="nav-tooltip">Library</span>
           </li>
           <li class="nav-item">
-            <button id="restore-history-btn" class="nav-link history-button">
+            <a href="index.html" class="nav-link">
               <span class="nav-icon material-symbols-rounded">chat</span>
-              <span class="nav-label">New Chat</span>
-            </button>
-            <!-- <span class="nav-tooltip">History</span> -->
+              <span class="nav-label">Chat</span>
+            </a>
+            <span class="nav-tooltip">Chat</span>
+          </li>
+          <li class="nav-item">
+            <a href="history.html" class="nav-link">
+              <span class="nav-icon material-symbols-rounded">history</span>
+              <span class="nav-label">History</span>
+            </a>
+            <span class="nav-tooltip">History</span>
           </li>
         </ul>
-        <ul id="conversation-buttons" class="nav-list secondary-nav"></ul>
         <!-- Secondary bottom nav -->
         <ul class="nav-list secondary-nav">
           <li class="nav-item">
@@ -97,7 +75,34 @@
         </ul>
       </nav>
     </aside>
+    <div class="upload-container">
+        <!-- App Content -->
+        <form action="" class="search-bar">
+          <input type="text" placeholder="Search for any files that you have uploaded" name="q" />
+          <div class="search-bar-actions">
+            <button id="upload-submit-button" class="material-symbols-rounded">search</button>
+          </div>
+        </form>
+        <button id="uploadTriggerBtn" class="material-symbols-rounded">add_circle</button>
+
+        <!-- Upload popup -->
+        <div id="uploadPopup" class="popup hidden">
+          <span id="closePopupBtn" class="close-btn">&times;</span>
+        
+          <div class="upload-row">
+            <input type="file" id="fileInput" multiple />
+            <button id="uploadBtn">
+              <span class="material-symbols-rounded">upload_file</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- <button id="uploadBtn" class="material-symbols-rounded">upload_file</button> -->
+    </div>
+    <!-- <div id="pdf-links" class="pdf-list"></div> -->
     <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
+    <!-- <script src="/src/upload_files.js"></script> -->
+    <script src="/src/popup.js"></script>
   </body>
 </html>

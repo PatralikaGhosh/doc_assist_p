@@ -3,8 +3,14 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { spawn } from "child_process";
 import dotenv from "dotenv";
+
+// Chat history imports
 import { MongoClient } from "mongodb";
 import { v4 as uuidv4 } from "uuid";  // Import uuid for generating unique session IDs
+
+// AWS SDK v3 imports
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 dotenv.config({ path: "../.env" });
 
@@ -34,11 +40,23 @@ app.post("/start_conversation", (req, res) => {
     res.send({ session_id });
 });
 
+// ----- AWS S3 CONFIG -----
+const s3Client = new S3Client({
+    region: process.env.AWS_REGION, 
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,     
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    }
+  });
+  const BUCKET_NAME = process.env.S3_BUCKET_NAME;
+
+  console.log("Bucket name", process.env.AWS_ACCESS_KEY_ID);
+
 // Store and process the extracted keywords (with session_id)
 app.post("/extract_keywords", async (req, res) => {
-    const { session_id, username, text } = req.body;
-    if (!session_id || !text || !username) {
-        return res.status(400).send("No session_id or text provided");
+  const { session_id, username, text } = req.body;
+  if (!session_id || !text || !username) {
+      return res.status(400).send("No session_id or text provided");
     }
 
     await saveMessage(session_id, "user", username, text); // Log user message
@@ -69,6 +87,33 @@ app.get("/get_chats/:session_id", async (req, res) => {
     console.log("get_chats the session_id is", session_id);
     const chats = await chatsCollection.find({ session_id }).sort({ timestamp: 1 }).toArray();
     res.send(chats);
+});
+
+// ----- NEW S3 PRE-SIGNED URL ENDPOINT -----
+app.post("/get_presigned_url", async (req, res) => {
+    try {
+      const { fileName, fileType } = req.body;
+      if (!fileName || !fileType) {
+        return res.status(400).json({ error: "Missing fileName or fileType" });
+      }
+  
+      // Create the command to put the object in S3
+      const command = new PutObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileName,
+        ContentType: fileType,
+      });
+  
+      // Generate the pre-signed URL
+      const signedUrl = await getSignedUrl(s3Client, command, {
+        expiresIn: 60 * 5, // 5 minutes
+      });
+  
+      return res.json({ url: signedUrl });
+    } catch (error) {
+      console.error("Error generating pre-signed URL:", error);
+      res.status(500).json({ error: "Failed to generate pre-signed URL" });
+    }
 });
 
 app.get("/get_conversations", async (req, res) => {

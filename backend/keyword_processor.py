@@ -44,9 +44,9 @@ if __name__ == "__main__":
 
     # Print extracted keywords to the terminal
     print("Extracted Keywords:", keywords, file=sys.stderr)
-
+    print("hi this is working")
     # Send plain text response to Node.js
-    result = subprocess.run(['python3', 'query_solr.py', input_text], capture_output=True, text=True)
-    output = result.stdout  # The printed output is stored in output
-    print(output)
+    # result = subprocess.run(['python', 'query_solr.py', input_text], capture_output=True, text=True)
+    # output = result.stdout  # The printed output is stored in output
+    # print(output)
     sys.stdout.flush()

@@ -424,6 +424,7 @@ body.bot-responding .prompt-form #stop-response-btn {
   }
 }
 
+/* Sidebar updates for conversation list */
 .sidebar-nav .nav-link,
 .sidebar-nav .history-button {
   color: #fff;
@@ -446,4 +447,153 @@ body.bot-responding .prompt-form #stop-response-btn {
   white-space: nowrap;
   text-overflow: ellipsis;
   flex-shrink: 1;
+}
+
+/* Upload files */
+.upload-container{
+  width: 100%;
+  padding: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.search-bar{
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  align-items: center;
+  border-radius: 56px;
+  padding: 10px 20px;
+  height: 100%;
+  border-radius: 130px;
+  background: var(--secondary-color);
+}
+
+.search-bar :where(.search-bar-actions){
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+}
+.search-bar input{
+  width: 100%;
+  height: 100%;
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-color);
+  padding-left: 24px;
+}
+.search-bar button{
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  border: none;
+  transition: 0.3s ease;
+  height: 45px;
+  width: 45px;
+  gap: 5px;
+  margin-right: 7px;
+  color: #fff;
+  background: #064a20;
+  align-items: center;
+}
+
+.search-bar button:hover{
+  background: #77aa8b;
+}
+
+.upload-container button{
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  border: none;
+  transition: 0.3s ease;
+  height: 45px;
+  width: 45px;
+  gap: 5px;
+  margin-left:20px;
+  color: #fff;
+  background: #064a20;
+  align-items: center;
+}
+
+.pdf-list {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.pdf-link {
+  display: block;
+  margin-bottom: 8px;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.pdf-link:hover {
+  text-decoration: underline;
+}
+
+.pdf-link:visited {
+  color: #551a8b;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  background: #222;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 999;
+  color: white;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+  z-index: 1000;
+}
+
+.upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+/* Optional: style the upload icon button */
+#uploadBtn {
+  background-color: darkgreen;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#uploadBtn .material-symbols-rounded {
+  font-size: 20px;
 }
