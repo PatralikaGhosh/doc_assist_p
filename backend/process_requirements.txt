@@ -1,0 +1,8 @@
+nltk
+openai-whisper
+moviepy==1.0.3
+deepmultilingualpunctuation
+pysolr
+pdf2image
+pytesseract
+boto3
