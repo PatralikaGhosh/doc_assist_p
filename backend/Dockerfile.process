@@ -1,0 +1,19 @@
+FROM python:3.10-slim
+
+# Install system dependencies (FFmpeg, poppler, Tesseract, etc.)
+RUN apt-get update && apt-get install -y ffmpeg poppler-utils tesseract-ocr
+
+# Copy your requirements file and install Python dependencies
+COPY process_requirements.txt /app/process_requirements.txt
+WORKDIR /app
+RUN pip install --no-cache-dir -r process_requirements.txt
+
+# (Optional) Download any additional NLTK resource if needed; 
+# note: you may want to download resources in your Docker image, but for now, your code only uses nltk_chunking.py
+RUN python3 -c "import nltk; nltk.download('punkt_tab')"
+
+# Copy your scripts (all files needed)
+COPY . /app/
+
+# Set the entrypoint to your main script
+ENTRYPOINT ["python3", "add_file_to_solr.py"]
