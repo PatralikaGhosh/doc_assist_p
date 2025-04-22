@@ -51,5 +51,22 @@
         });
     </script>    
     <script type="module" src="/src/auth.js"></script>
+    <script type="module">
+      import { onAuthReady } from '/src/auth.js';
+    
+      onAuthReady(user => {
+        const uploadBtn = document.getElementById("uploadTriggerBtn");
+    
+        // Hide the upload button for unauthorized users
+        const allowedEmails = ["pyxis2100@gmail.com"];
+    
+        if (!user || !allowedEmails.includes(user.email)) {
+          uploadBtn.style.display = "none";
+        } else {
+          uploadBtn.style.display = "inline-block"; // just in case
+        }
+      });
+    </script>
+    
   </body>
 </html>
