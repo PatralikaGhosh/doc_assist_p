@@ -10,7 +10,48 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="sidebar-placeholder"></div>
+        <!-- Fixed Sidebar -->
+        <aside class="sidebar">
+          <!-- Sidebar header -->
+          <header class="sidebar-header">
+            <a href="#" class="header-logo">
+              <img src="docAssist_logo.svg" alt="CodingNepal">
+            </a>
+            <button class="toggler sidebar-toggler">
+              <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+            <button class="toggler menu-toggler">
+              <span class="material-symbols-rounded">menu</span>
+            </button>
+          </header>
+          <nav class="sidebar-nav">
+            <!-- Primary top nav -->
+            <ul class="nav-list primary-nav">
+              <li class="nav-item">
+                <a href="library.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">dashboard</span>
+                  <span class="nav-label">Library</span>
+                </a>
+                <span class="nav-tooltip">Library</span>
+              </li>
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">chat</span>
+                  <span class="nav-label">Chat</span>
+                </a>
+                <span class="nav-tooltip">Chat</span>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                <!-- Theme and Delete Chats Buttons -->
+                <span id="theme-toggle-btn" class="nav-icon material-symbols-rounded">light_mode</span>
+                <span id="theme-toggle-btn" class="nav-label">Mode</span>
+                </a>
+                <span id="theme-toggle-btn" class="nav-tooltip">Mode</span>
+              </li>
+            </ul>
+          </nav>
+        </aside>
     <!-- Login -->
     <div class="auth-buttons">
       <button id="google-login">Log in</button>
@@ -19,7 +60,7 @@
     <div class="upload-container">
         <!-- App Content -->
         <form id="searchForm" class="search-bar">
-          <input type="text" placeholder="Search for any files that you have uploaded" name="q" />
+          <input type="text" placeholder="Search" name="q" />
           <div class="search-bar-actions">
             <button id="upload-submit-button" class="material-symbols-rounded">search</button>
           </div>
@@ -43,13 +84,23 @@
     <script src="/src/sidebar.js"></script>
     <script src="/src/popup.js"></script>
     <script src="/src/search_bar.js"></script>
-    <script>
-      fetch('sidebar.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('sidebar-placeholder').innerHTML = data;
-        });
-    </script>    
     <script type="module" src="/src/auth.js"></script>
+    <script type="module">
+      import { onAuthReady } from '/src/auth.js';
+    
+      onAuthReady(user => {
+        const uploadBtn = document.getElementById("uploadTriggerBtn");
+    
+        // Hide the upload button for unauthorized users
+        const allowedEmails = ["pyxis2100@gmail.com", "timothy.smithii@tamu.edu", "rohanganta@tamu.edu"];
+    
+        if (!user || !allowedEmails.includes(user.email)) {
+          uploadBtn.style.display = "none";
+        } else {
+          uploadBtn.style.display = "inline-block"; // just in case
+        }
+      });
+    </script>
+    
   </body>
 </html>

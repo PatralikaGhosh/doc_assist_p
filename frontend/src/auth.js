@@ -77,3 +77,10 @@ onAuthStateChanged(auth, user => {
     if (profilePic) profilePic.remove();
   }
 });
+
+export function onAuthReady(callback) {
+    const auth = getAuth();
+    onAuthStateChanged(auth, user => {
+      callback(user);
+    });
+}
