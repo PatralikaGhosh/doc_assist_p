@@ -43,15 +43,49 @@
        <p class="disclaimer-text">docAssist can make mistakes, check important information.</p>
      </div>
     </div>
-    <div id="sidebar-placeholder"></div>
-    <script type="module" src="/src/auth.js"></script>
-    <script>
-      fetch('sidebar.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('sidebar-placeholder').innerHTML = data;
-        });
-    </script>    
+        <!-- Fixed Sidebar -->
+        <aside class="sidebar">
+          <!-- Sidebar header -->
+          <header class="sidebar-header">
+            <a href="#" class="header-logo">
+              <img src="docAssist_logo.svg" alt="CodingNepal">
+            </a>
+            <button class="toggler sidebar-toggler">
+              <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+            <button class="toggler menu-toggler">
+              <span class="material-symbols-rounded">menu</span>
+            </button>
+          </header>
+          <nav class="sidebar-nav">
+            <!-- Primary top nav -->
+            <ul class="nav-list primary-nav">
+              <li class="nav-item">
+                <a href="library.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">dashboard</span>
+                  <span class="nav-label">Library</span>
+                </a>
+                <span class="nav-tooltip">Library</span>
+              </li>
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">chat</span>
+                  <span class="nav-label">Chat</span>
+                </a>
+                <span class="nav-tooltip">Chat</span>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                <!-- Theme and Delete Chats Buttons -->
+                <span id="theme-toggle-btn" class="nav-icon material-symbols-rounded">light_mode</span>
+                <span id="theme-toggle-btn" class="nav-label">Mode</span>
+                </a>
+                <span id="theme-toggle-btn" class="nav-tooltip">Mode</span>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+    <script type="module" src="/src/auth.js"></script>   
     <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
   </body>
