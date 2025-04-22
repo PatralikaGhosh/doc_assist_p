@@ -49,10 +49,10 @@ uploadTriggerBtn.addEventListener('click', () => {
         alert(`Error uploading ${fileName}`);
       }
     }
-  
-    alert('All files uploaded!');
-    fileInput.value = ""; // Clear the input
-    uploadPopup.classList.add('hidden'); // Hide popup
+    
+      alert('All files uploaded!');
+      fileInput.value = ""; // Clear the input
+      uploadPopup.classList.add('hidden'); // Hide popup
   });
 
 fileInput.addEventListener("change", () => {
@@ -73,7 +73,5 @@ document.addEventListener("DOMContentLoaded", () => {
     closePopupBtn.addEventListener('click', () => {
       uploadPopup.classList.add('hidden');
     });
-  
-    // Your existing upload logic here...
   });
   

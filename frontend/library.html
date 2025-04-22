@@ -40,13 +40,6 @@
             </a>
             <span class="nav-tooltip">Chat</span>
           </li>
-          <li class="nav-item">
-            <a href="history.html" class="nav-link">
-              <span class="nav-icon material-symbols-rounded">history</span>
-              <span class="nav-label">History</span>
-            </a>
-            <span class="nav-tooltip">History</span>
-          </li>
         </ul>
         <!-- Secondary bottom nav -->
         <ul class="nav-list secondary-nav">
@@ -77,7 +70,7 @@
     </aside>
     <div class="upload-container">
         <!-- App Content -->
-        <form action="" class="search-bar">
+        <form id="searchForm" class="search-bar">
           <input type="text" placeholder="Search for any files that you have uploaded" name="q" />
           <div class="search-bar-actions">
             <button id="upload-submit-button" class="material-symbols-rounded">search</button>
@@ -96,13 +89,11 @@
             </button>
           </div>
         </div>
-
-        <!-- <button id="uploadBtn" class="material-symbols-rounded">upload_file</button> -->
     </div>
-    <!-- <div id="pdf-links" class="pdf-list"></div> -->
+    <div id="file-list" class="file-container"></div>
     <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
-    <!-- <script src="/src/upload_files.js"></script> -->
     <script src="/src/popup.js"></script>
+    <script src="/src/search_bar.js"></script>
   </body>
 </html>

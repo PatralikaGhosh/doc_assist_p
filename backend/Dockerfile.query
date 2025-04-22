@@ -1,0 +1,28 @@
+FROM python:3.10-slim
+
+# Install required system dependencies (and any others you need)
+RUN apt-get update && apt-get install -y ffmpeg poppler-utils tesseract-ocr
+
+# Upgrade pip and install Python dependencies from your requirements.txt
+COPY query_requirements.txt /app/query_requirements.txt
+WORKDIR /app
+RUN pip install --upgrade pip && \
+    pip install wheel && \
+    pip install -r query_requirements.txt
+
+# Pre-download NLTK data directly into the image
+RUN mkdir -p /app/nltk_data && \
+    python3 -c "import nltk; nltk.download('stopwords', download_dir='/app/nltk_data')" && \
+    python3 -c "import nltk; nltk.download('averaged_perceptron_tagger', download_dir='/app/nltk_data')" && \
+    python3 -c "import nltk; nltk.download('wordnet', download_dir='/app/nltk_data')" && \
+    python3 -c "import nltk; nltk.download('punkt', download_dir='/app/nltk_data')"
+
+# Copy your application code
+COPY . /app
+
+# Set environment variable so nltk knows where to find the data.
+ENV NLTK_DATA=/app/nltk_data
+
+# Set the default command (adjust to your application’s entry point)
+ENTRYPOINT ["python3", "query_solr.py"]
+
