@@ -640,6 +640,10 @@ body.bot-responding .prompt-form #stop-response-btn {
   flex-shrink: 1;
 }
 
+#conversation-buttons {
+  margin-top: 2rem; /* or try 16px, or more if needed */
+}
+
 /* --- Auth buttons: fixed in top‑right --- */
 .auth-buttons {
   position: fixed;            /* pops out of normal flow */

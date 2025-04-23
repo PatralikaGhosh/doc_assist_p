@@ -169,19 +169,15 @@ const loadConversations = async () => {
     }
 };
 
-
-
 // Start new conversation
 const startNewConversation = async () => {
     try {
-        username = "Tim";
         const response = await fetch("http://localhost:3000/start_conversation", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
         });
         const { session_id: newSessionId } = await response.json();
         session_id = newSessionId; // Store the session ID
-        username = "Tim";
         chatsContainer.innerHTML = ""; // Clear chat UI
         loadChatHistory(); // Load the chat history for the new session
         await loadConversations(); // Add this after setting session_id
@@ -190,41 +186,32 @@ const startNewConversation = async () => {
     }
 };
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Initialize a new session when the page loads
 window.onload = async () => {
-    username = "Tim"
+    await sleep(1000);  // waits 1 seconds
     await startNewConversation();
+    console.log("loading conversation for username,", username);
     await loadConversations();
 };
 
-
 // Toggle dark/light theme
-themeToggleBtn.addEventListener("click", () => {
+themeToggleBtn.addEventListener("click", () => {  
     const isLightTheme = document.body.classList.toggle("light-theme");
     localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
     themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
 });
 
-  // Delete all chats OVERRIDDEN
-  document.querySelector("#delete-chats-btn").addEventListener("click", () => {
-    console.log("in TRASH, our session_id is", session_id);
-    // session_id = "9df972ee-d0fb-4791-8ca4-7a2a471a7751"
+// Delete all chats OVERRIDDEN
+document.querySelector("#delete-chats-btn").addEventListener("click", () => {
     loadChatHistory();
-
     testLoadConversations();
 });
 
 promptForm.addEventListener("submit", handleFormSubmit);
-
-document.getElementById("restore-history-btn").addEventListener("click", function() {
-    startNewConversation();
-    loadConversations(); // ! PITCH?
-    
-    // alert("Hello from external script!");
-    // console.log("We CLICKEDED");
-    // session_id = "9df972ee-d0fb-4791-8ca4-7a2a471a7751"
-    // loadChatHistory();
-  });
 
 async function testLoadConversations() {
     try {
@@ -241,6 +228,4 @@ async function testLoadConversations() {
     }
   }
   
-  
-
 document.addEventListener("DOMContentLoaded", testLoadConversations);
