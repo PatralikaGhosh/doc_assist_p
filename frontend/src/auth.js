@@ -44,7 +44,10 @@ onAuthStateChanged(auth, user => {
   const logoutBtn = document.getElementById("logout");
 
   if (user) {
+    username = user.email;
     console.log("Hello", user.displayName);
+    console.log("Your email is", user.email);
+    console.log("Your username is", username);
 
     // Hide login button and show logout
     loginBtn.style.display = "none";

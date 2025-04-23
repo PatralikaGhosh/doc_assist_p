@@ -9,12 +9,13 @@ const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoin
 let userMessage = "";
 let typingInterval, controller;
 const chatHistory = [];
+let session_id = "";
+let username = "";
 
 // Set initial theme from local storage
 const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
 document.body.classList.toggle("light-theme", isLightTheme);
 themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
-
 
 // Function to create message elements
 const createMsgElement = (content, ...classes) => {
@@ -33,7 +34,6 @@ const typingEffect = (text, textElement, botMsgDiv) => {
     const words = text.split(" ");
     let wordIndex = 0;
 
-    // set interval to type words
     typingInterval = setInterval(() => {
         if (wordIndex < words.length) {
             textElement.textContent += (wordIndex === 0 ? "" : " ") + words[wordIndex++];
@@ -54,27 +54,21 @@ const generateResponse = async (botMsgDiv) => {
     // Add user message to chat history
     chatHistory.push({
         role: "user",
-        parts:[{text: userMessage}]
+        parts: [{ text: userMessage }]
     });
 
     try {
-        const response = await fetch(BACKEND_URL, { // change to BACKEND_URL for local server  
+        const response = await fetch(BACKEND_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({text: userMessage}),
+            body: JSON.stringify({ session_id, username, text: userMessage }),
             signal: controller.signal
         });
-        
-        // const data = await response.json(); // for API_URL
-        // console.log(data);
 
-        if(!response.ok) throw new Error("Failed to fetch response from server");
+        if (!response.ok) throw new Error("Failed to fetch response from server");
 
-        const responseText = await response.text(); //   for BACKEND_URL
-        // const responseText = data.candidates[0].content.parts[0].text.replace(/\*\*([^*]+)\*\*/g, "$1").trim(); // only for API_URL
-    
-        // typingEffect(responseText, textElement, botMsgDiv); // only for API_URL
-        typingEffect(responseText.trim(), textElement, botMsgDiv); // for BACKEND_URL
+        const responseText = await response.text();
+        typingEffect(responseText.trim(), textElement, botMsgDiv);
         chatHistory.push({ role: "model", parts: [{ text: responseText }] });
 
     } catch (error) {
@@ -87,7 +81,7 @@ const generateResponse = async (botMsgDiv) => {
 };
 
 // Handle form submission
-const handleFormSubmit = (e) => {
+const handleFormSubmit = async (e) => {
     e.preventDefault();
     userMessage = promptInput.value.trim();
 
@@ -96,6 +90,7 @@ const handleFormSubmit = (e) => {
 
     promptInput.value = "";
     document.body.classList.add("chats-active", "bot-responding");
+
     // Generate user message HTML
     const userMsgHTML = `<p class="message-text"></p>`;
     const userMsgDiv = createMsgElement(userMsgHTML, "user-message");
@@ -113,26 +108,124 @@ const handleFormSubmit = (e) => {
     }, 600);
 };
 
+// Load chat history from database for a specific session
+const loadChatHistory = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/get_chats/${session_id}`);
+
+        const chats = await response.json();
+
+        chats.forEach(({ role, message }) => {
+            const msgDiv = createMsgElement(
+                `<p class="message-text">${message}</p>`, 
+                role === "user" ? "user-message" : "bot-message"
+            );
+            chatsContainer.appendChild(msgDiv);
+        });
+
+        scrollToBottom();
+    } catch (error) {
+        console.error("Failed to load chat history:", error);
+    }
+};
+
+const loadConversations = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/get_conversations?username=${encodeURIComponent(username)}`);
+        const conversations = await response.json();
+        console.log("Loaded conversations:", conversations);
+
+        const conversationButtonsContainer = document.getElementById("conversation-buttons");
+        conversationButtonsContainer.innerHTML = '';
+
+        conversations.forEach((convSessionId, index) => { // Renamed variable to avoid confusion
+            console.log("Conversation object:", convSessionId); // Debug log
+
+            const conversationItem = document.createElement('li');
+            conversationItem.classList.add("nav-item");
+
+            const conversationLink = document.createElement('button');
+            conversationLink.classList.add("nav-link");
+            // conversationLink.textContent = `Session ID: ${convSessionId}`;
+            conversationLink.textContent = `Conversation ${index + 1}`;
+
+            if (convSessionId) {
+                conversationLink.addEventListener("click", () => {
+                    console.log("cliCK");
+                    session_id = convSessionId; // Set the global session_id correctly
+                    console.log("new session_id is:", session_id);
+                    chatsContainer.innerHTML = ""; // Clear old messages
+                    loadChatHistory(); // Load the chat history for this session
+
+                    loadConversations();// On sidebar, refresh conversation list
+                });
+            }
+
+            conversationItem.appendChild(conversationLink);
+            conversationButtonsContainer.appendChild(conversationItem);
+        });
+    } catch (error) {
+        console.error("Failed to load conversations:", error);
+    }
+};
+
+// Start new conversation
+const startNewConversation = async () => {
+    try {
+        const response = await fetch("http://localhost:3000/start_conversation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+        const { session_id: newSessionId } = await response.json();
+        session_id = newSessionId; // Store the session ID
+        chatsContainer.innerHTML = ""; // Clear chat UI
+        loadChatHistory(); // Load the chat history for the new session
+        await loadConversations(); // Add this after setting session_id
+    } catch (error) {
+        console.error("Failed to start a new conversation:", error);
+    }
+};
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Initialize a new session when the page loads
+window.onload = async () => {
+    await sleep(1000);  // waits 1 seconds
+    await startNewConversation();
+    console.log("loading conversation for username,", username);
+    await loadConversations();
+};
+
 // Toggle dark/light theme
-themeToggleBtn.addEventListener("click", () => {
+themeToggleBtn.addEventListener("click", () => {  
     const isLightTheme = document.body.classList.toggle("light-theme");
     localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
     themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
 });
-  
-// Stop Bot Response
-document.querySelector("#stop-response-btn").addEventListener("click", () => {
-    controller?.abort();
-    clearInterval(typingInterval);
-    chatsContainer.querySelector(".bot-message.loading").classList.remove("loading");
-    document.body.classList.remove("bot-responding");
-});
 
-  // Delete all chats
+// Delete all chats OVERRIDDEN
 document.querySelector("#delete-chats-btn").addEventListener("click", () => {
-    chatHistory.length = 0;
-    chatsContainer.innerHTML = "";
-    document.body.classList.remove("chats-active", "bot-responding");
+    loadChatHistory();
+    testLoadConversations();
 });
 
 promptForm.addEventListener("submit", handleFormSubmit);
+
+async function testLoadConversations() {
+    try {
+      const res = await fetch("http://localhost:3000/get_conversations");
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Server error: ${errText}`);
+      }
+  
+      const sessionIds = await res.json();
+      console.log("✅ Unique session IDs:", sessionIds);
+    } catch (err) {
+      console.error("❌ Failed to load conversations:", err.message);
+    }
+  }
+  
+document.addEventListener("DOMContentLoaded", testLoadConversations);
