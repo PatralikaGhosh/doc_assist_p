@@ -58,7 +58,7 @@ const s3Client = new S3Client({
 // Store and process the extracted keywords (with session_id)
 app.post("/extract_keywords", async (req, res) => {
   const { session_id, username, text } = req.body;
-  if (!session_id || !text || !username) {
+  if (!session_id || !text) {
       return res.status(400).send("No session_id or text provided");
     }
 
