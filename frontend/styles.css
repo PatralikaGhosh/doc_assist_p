@@ -639,3 +639,26 @@ body.bot-responding .prompt-form #stop-response-btn {
   text-overflow: ellipsis;
   flex-shrink: 1;
 }
+
+/* --- Auth buttons: fixed in top‑right --- */
+.auth-buttons {
+  position: fixed;            /* pops out of normal flow */
+  top: 1rem;                  /* distance from top edge */
+  right: 1rem;                /* distance from right edge */
+  display: flex;              /* lay buttons horizontally */
+  gap: 0.5rem;                /* little space between buttons */
+  z-index: 9999;              /* stay above sidebar slides, etc. */
+}
+
+.auth-buttons button {
+  align-items: center;
+  padding: 10px;
+  border: 2px solid green;
+  border-radius: 8px;
+  background-color: black; /* Light green background */
+  color: green;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+}
+

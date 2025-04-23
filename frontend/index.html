@@ -10,11 +10,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="auth-container"></div>
     <div class="container">
       <!-- App Header -->
       <header class="app-header">
         <h1 class="heading">Hello there!</h1>
       </header>
+      <!-- Login -->
+      <div class="auth-buttons">
+        <button id="google-login">Log in</button>
+        <button id="logout" style="display:none;">Log out</button>
+      </div>
       <!-- Chats -->
       <div class="chats-container">
       </div>
@@ -37,28 +43,14 @@
        <p class="disclaimer-text">docAssist can make mistakes, check important information.</p>
      </div>
     </div>
-    <!-- Fixed Sidebar -->
-    <aside class="sidebar">
-      <!-- Sidebar header -->
-      <header class="sidebar-header">
-        <a href="#" class="header-logo">
-          <img src="docAssist_logo.svg" alt="CodingNepal">
-        </a>
-        <button class="toggler sidebar-toggler">
-          <span class="material-symbols-rounded">chevron_left</span>
-        </button>
-        <button class="toggler menu-toggler">
-          <span class="material-symbols-rounded">menu</span>
-        </button>
-      </header>
-      <nav class="sidebar-nav">
-        <!-- Primary top nav -->
-        <ul class="nav-list primary-nav">
-          <li class="nav-item">
-            <a href="library.html" class="nav-link">
-              <span class="nav-icon material-symbols-rounded">dashboard</span>
-              <span class="nav-label">Library</span>
+        <!-- Fixed Sidebar -->
+        <aside class="sidebar">
+          <!-- Sidebar header -->
+          <header class="sidebar-header">
+            <a href="#" class="header-logo">
+              <img src="docAssist_logo.svg" alt="CodingNepal">
             </a>
+<!-- HEAD -->
             <!-- <span class="nav-tooltip">Library</span> -->
           </li>
           <li class="nav-item">
@@ -97,6 +89,44 @@
         </ul>
       </nav>
     </aside>
+<!-- ------ -->
+            <button class="toggler sidebar-toggler">
+              <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+            <button class="toggler menu-toggler">
+              <span class="material-symbols-rounded">menu</span>
+            </button>
+          </header>
+          <nav class="sidebar-nav">
+            <!-- Primary top nav -->
+            <ul class="nav-list primary-nav">
+              <li class="nav-item">
+                <a href="library.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">dashboard</span>
+                  <span class="nav-label">Library</span>
+                </a>
+                <span class="nav-tooltip">Library</span>
+              </li>
+              <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">chat</span>
+                  <span class="nav-label">Chat</span>
+                </a>
+                <span class="nav-tooltip">Chat</span>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                <!-- Theme and Delete Chats Buttons -->
+                <span id="theme-toggle-btn" class="nav-icon material-symbols-rounded">light_mode</span>
+                <span id="theme-toggle-btn" class="nav-label">Mode</span>
+                </a>
+                <span id="theme-toggle-btn" class="nav-tooltip">Mode</span>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+    <script type="module" src="/src/auth.js"></script>   
+<!-- main -->
     <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
   </body>
