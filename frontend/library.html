@@ -15,7 +15,7 @@
           <!-- Sidebar header -->
           <header class="sidebar-header">
             <a href="#" class="header-logo">
-              <img src="docAssist_logo.svg" alt="CodingNepal">
+              <img src="docAssist_logo.svg" alt="docAssist">
             </a>
             <button class="toggler sidebar-toggler">
               <span class="material-symbols-rounded">chevron_left</span>
@@ -41,21 +41,19 @@
                 </a>
                 <span class="nav-tooltip">Chat</span>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                <!-- Theme and Delete Chats Buttons -->
-                <span id="theme-toggle-btn" class="nav-icon material-symbols-rounded">light_mode</span>
-                <span id="theme-toggle-btn" class="nav-label">Mode</span>
-                </a>
-                <span id="theme-toggle-btn" class="nav-tooltip">Mode</span>
-              </li>
             </ul>
           </nav>
         </aside>
     <!-- Login -->
     <div class="auth-buttons">
+      <!-- Theme Toggle Button (Sun/Moon) -->
+      <button id="theme-toggle-btn" class="theme-toggle" title="Toggle Theme">
+        <span class="material-symbols-rounded" id="theme-icon">light_mode</span>
+      </button>
+    
+      <!-- Auth Buttons -->
       <button id="google-login">Log in</button>
-      <button id="logout" style="display:none;">Log out</button>
+      <button id="logout" style="display:none;">Log out</button>
     </div>
     <div class="upload-container">
         <!-- App Content -->
@@ -80,9 +78,10 @@
         </div>
     </div>
     <div id="file-list" class="file-container"></div>
-    <script src="/src/script.js"></script>
     <script src="/src/sidebar.js"></script>
     <script src="/src/popup.js"></script>
+
+    <script src="/src/screen_theme.js"></script>
     <script type="module" src="/src/search_bar.js"></script>
     <script type="module" src="/src/auth.js"></script>
     <script type="module">

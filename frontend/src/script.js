@@ -2,7 +2,6 @@ const chatsContainer = document.querySelector('.chats-container');
 const container = document.querySelector('.container');
 const promptForm = document.querySelector('.prompt-form');
 const promptInput = document.querySelector('.prompt-input');
-const themeToggleBtn = document.querySelector("#theme-toggle-btn");
 
 const BACKEND_URL = "http://localhost:3000/extract_keywords"; // Backend endpoint
 
@@ -12,10 +11,6 @@ const chatHistory = [];
 let session_id = "";
 let username = "";
 
-// Set initial theme from local storage
-const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
-document.body.classList.toggle("light-theme", isLightTheme);
-themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
 
 // Function to create message elements
 const createMsgElement = (content, ...classes) => {
@@ -198,12 +193,6 @@ window.onload = async () => {
     await loadConversations();
 };
 
-// Toggle dark/light theme
-themeToggleBtn.addEventListener("click", () => {  
-    const isLightTheme = document.body.classList.toggle("light-theme");
-    localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
-    themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
-});
 
 // Delete all chats OVERRIDDEN
 document.querySelector("#delete-chats-btn").addEventListener("click", () => {
@@ -229,3 +218,4 @@ async function testLoadConversations() {
   }
   
 document.addEventListener("DOMContentLoaded", testLoadConversations);
+
