@@ -636,3 +636,21 @@ body.bot-responding .prompt-form #stop-response-btn {
   font-size: 18px;
   text-decoration: none;
 }
+
+
+.auth-buttons .theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 0.5rem; 
+  color: green;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.auth-buttons .theme-toggle:hover {
+  filter: brightness(1.3);
+}
