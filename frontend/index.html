@@ -18,6 +18,12 @@
       </header>
       <!-- Login -->
       <div class="auth-buttons">
+        <!-- Theme Toggle Button (Sun/Moon) -->
+        <button id="theme-toggle-btn" class="theme-toggle" title="Toggle Theme">
+          <span class="material-symbols-rounded" id="theme-icon">light_mode</span>
+        </button>
+  
+        <!-- Auth Buttons -->
         <button id="google-login">Log in</button>
         <button id="logout" style="display:none;">Log out</button>
       </div>
@@ -75,20 +81,13 @@
                 </a>
                 <span class="nav-tooltip">Chat</span>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                <!-- Theme and Delete Chats Buttons -->
-                <span id="theme-toggle-btn" class="nav-icon material-symbols-rounded">light_mode</span>
-                <span id="theme-toggle-btn" class="nav-label">Mode</span>
-                </a>
-                <span id="theme-toggle-btn" class="nav-tooltip">Mode</span>
-              </li>
             </ul>
             <ul id="conversation-buttons" class="nav-list secondary-nav"></ul>
           </nav>
         </aside>
     <script type="module" src="/src/auth.js"></script>   
     <script src="/src/script.js"></script>
+    <script src="/src/screen_theme.js"></script>
     <script src="/src/sidebar.js"></script>
   </body>
 </html>
